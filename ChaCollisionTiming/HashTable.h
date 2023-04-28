@@ -1,11 +1,12 @@
 #pragma once
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class LinearTable {
 private:
 	int data[29]{ NULL };
-	float loadFactor = 0;
+	double loadFactor = 0;
 	int inserts = 0;
 	int firstCollision = 0;
 	
@@ -62,7 +63,7 @@ public:
 class QuadraticTable {
 private:
 	int data[29]{ NULL };
-	float loadFactor = 0;
+	double loadFactor = 0;
 	int inserts = 0;
 	int firstCollision = 0;
 public:
@@ -117,8 +118,8 @@ public:
 
 class ChainTable {
 private:
-	int data[29]{ NULL };
-	float loadFactor = 0;
+	vector<int> data[29]{};
+	double loadFactor = 0;
 	int inserts = 0;
 	int firstCollision = 0;
 	int loadFactor90 = 0;
@@ -130,20 +131,10 @@ public:
 			return;
 		}
 		inserts++;
-		if (data[index % 29] == NULL) {
-			data[index % 29] = numIn;
+		if (data[index % 29].size() != 0 && firstCollision == 0) {
+			firstCollision = inserts;
 		}
-		else {
-			for (int i = 1; i < 29; i++) {
-				if (data[((index % 29) + i) % 29] == NULL) {
-					data[((index % 29) + i) % 29] = numIn;
-					break;
-				}
-			}
-			if (firstCollision == 0) {
-				firstCollision = inserts;
-			}
-		}
+		data[index % 29].push_back(numIn);
 		this->calcLoad();
 		if (loadFactor90 == 0 && loadFactor >= .9) {
 			loadFactor90 = inserts;
@@ -156,7 +147,7 @@ public:
 	void printTable() {
 		cout << "[";
 		for (int i = 0; i < 29; i++) {
-			cout << data[i] << " ";
+			cout << data[i].size() << " ";
 		}
 		cout << "]";
 	}
@@ -164,7 +155,7 @@ public:
 	void calcLoad() {
 		double entries = 0;
 		for (int i = 0; i < 29; i++) {
-			if (data[i] != 0) {
+			if (data[i].size() != 0) {
 				entries++;
 			}
 		}

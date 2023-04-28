@@ -25,4 +25,24 @@ int main() {
     }
     first /= 1000;
     cout << "Quadratic inserts before first collision: " << first << endl;
+
+    first = 0;
+    double load90 = 0;
+    double load100 = 0;
+    for (int i = 0; i < 1000; i++) {
+        ChainTable c;
+        int j = 1;
+        while(c.getLoad() != 1) {
+            c.add(rand() % 100 + 1, j);
+        }
+        first += c.getFirstCollsion();
+        load90 += c.getLoadFactor90();
+        load100 += c.getLoadFactor100();
+    }
+    first /= 1000;
+    load90 /= 1000;
+    load100 /= 1000;
+    cout << "Chain inserts before first collision: " << first << endl;
+    cout << "Chain inserts before load 90: " << load90 << endl;
+    cout << "Chain inserts before load 100: " << load100 << endl;
 }
