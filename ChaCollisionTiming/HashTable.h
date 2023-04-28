@@ -1,0 +1,189 @@
+#pragma once
+#include <iostream>
+using namespace std;
+
+class LinearTable {
+private:
+	int data[29]{ NULL };
+	float loadFactor = 0;
+	int inserts = 0;
+	int firstCollision = 0;
+	
+public:
+	void add(int index, int numIn) {
+		if (loadFactor == 1) {
+			return;
+		}
+		inserts++;
+		if (data[index % 29] == NULL) {
+			data[index % 29] = numIn;
+		}
+		else {
+			for (int i = 1; i < 29; i++) {
+				if (data[((index % 29) + i) % 29] == NULL) {
+					data[((index % 29) + i) % 29] = numIn;
+					break;
+				}
+			}
+			if (firstCollision == 0) {
+				firstCollision = inserts;
+			}
+		}
+		this->calcLoad();
+	}
+
+	void printTable() {
+		cout << "[";
+		for (int i = 0; i < 29; i++) {
+			cout << data[i] << " ";
+		}
+		cout << "]";
+	}
+
+	void calcLoad() {
+		double entries = 0;
+		for (int i = 0; i < 29; i++) {
+			if (data[i] != 0) {
+				entries++;
+			}
+		}
+		loadFactor = entries/29;
+	}
+
+	double getLoad() {
+		return loadFactor;
+	}
+
+	int getFirstCollsion() {
+		return firstCollision;
+	}
+};
+
+class QuadraticTable {
+private:
+	int data[29]{ NULL };
+	float loadFactor = 0;
+	int inserts = 0;
+	int firstCollision = 0;
+public:
+	void add(int index, int numIn) {
+		if (loadFactor == 1) {
+			return;
+		}
+		inserts++;
+		if (data[index % 29] == NULL) {
+			data[index % 29] = numIn;
+		}
+		else {
+			for (int i = 1; i < 29; i++) {
+				if (data[((index % 29) + (i * i)) % 29] == NULL) {
+					data[((index % 29) + (i * i)) % 29] = numIn;
+					break;
+				}
+				if (firstCollision == 0) {
+				firstCollision = inserts;
+				}
+			}
+		}
+		this->calcLoad();
+	}
+
+	void printTable() {
+		cout << "[";
+		for (int i = 0; i < 29; i++) {
+			cout << data[i] << " ";
+		}
+		cout << "]";
+	}
+
+	void calcLoad() {
+		double entries = 0;
+		for (int i = 0; i < 29; i++) {
+			if (data[i] != 0) {
+				entries++;
+			}
+		}
+		loadFactor = entries/29;
+	}
+
+	double getLoad() {
+		return loadFactor;
+	}
+
+	int getFirstCollsion() {
+		return firstCollision;
+	}
+};
+
+class ChainTable {
+private:
+	int data[29]{ NULL };
+	float loadFactor = 0;
+	int inserts = 0;
+	int firstCollision = 0;
+	int loadFactor90 = 0;
+	int loadFactor100 = 0;
+	
+public:
+	void add(int index, int numIn) {
+		if (loadFactor == 1) {
+			return;
+		}
+		inserts++;
+		if (data[index % 29] == NULL) {
+			data[index % 29] = numIn;
+		}
+		else {
+			for (int i = 1; i < 29; i++) {
+				if (data[((index % 29) + i) % 29] == NULL) {
+					data[((index % 29) + i) % 29] = numIn;
+					break;
+				}
+			}
+			if (firstCollision == 0) {
+				firstCollision = inserts;
+			}
+		}
+		this->calcLoad();
+		if (loadFactor90 == 0 && loadFactor >= .9) {
+			loadFactor90 = inserts;
+		}
+		if (loadFactor100 == 0 && loadFactor == 1) {
+			loadFactor100 = inserts;
+		}
+	}
+
+	void printTable() {
+		cout << "[";
+		for (int i = 0; i < 29; i++) {
+			cout << data[i] << " ";
+		}
+		cout << "]";
+	}
+
+	void calcLoad() {
+		double entries = 0;
+		for (int i = 0; i < 29; i++) {
+			if (data[i] != 0) {
+				entries++;
+			}
+		}
+		loadFactor = entries/29;
+	}
+
+	double getLoad() {
+		return loadFactor;
+	}
+
+	int getFirstCollsion() {
+		return firstCollision;
+	}
+
+	int getLoadFactor90() {
+		return loadFactor90;
+	}
+
+	int getLoadFactor100() {
+		return loadFactor100;
+	}
+};
