@@ -128,23 +128,20 @@ private:
 
 public:
 	void add(int index, int numIn) {
-		if (loadFactor == 1) {
-			return;
-		}
 		inserts++;
 		if (data[index % 29].size() != 0 && firstCollision == 0) {
 			firstCollision = inserts;
 		}
 		data[index % 29].push_back(numIn);
 		this->calcLoad();
-		if (data[index % 29].size() >= 29 && length29 == 0) {
-			length29 = inserts;
-		}
 		if (loadFactor90 == 0 && loadFactor >= .9) {
 			loadFactor90 = inserts;
 		}
 		if (loadFactor100 == 0 && loadFactor == 1) {
 			loadFactor100 = inserts;
+		}
+		if (length29 == 0 && data[index % 29].size() >= 29) {
+			length29 = inserts;
 		}
 	}
 

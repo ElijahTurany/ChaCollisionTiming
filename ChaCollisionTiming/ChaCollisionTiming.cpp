@@ -45,6 +45,14 @@ int main() {
     cout << "Chain inserts before load 90: " << load90 << endl;
     cout << "Chain inserts before load 100: " << load100 << endl;
 
-    ChainTable c2;
-
+    double length29 = 0;
+    for (int i = 0; i < 1000; i++) {
+        ChainTable c2;
+        while (c2.getLength29() == 0) {
+            c2.add(rand() % 100 + 1, 1);
+        }
+        length29 += c2.getLength29();
+    }
+    length29 /= 1000;
+    cout << "Chain inserts before length 29: " << length29 << endl;
 }
