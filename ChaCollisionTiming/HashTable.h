@@ -9,7 +9,7 @@ private:
 	double loadFactor = 0;
 	int inserts = 0;
 	int firstCollision = 0;
-	
+
 public:
 	void add(int index, int numIn) {
 		if (loadFactor == 1) {
@@ -48,7 +48,7 @@ public:
 				entries++;
 			}
 		}
-		loadFactor = entries/29;
+		loadFactor = entries / 29;
 	}
 
 	double getLoad() {
@@ -82,7 +82,7 @@ public:
 					break;
 				}
 				if (firstCollision == 0) {
-				firstCollision = inserts;
+					firstCollision = inserts;
 				}
 			}
 		}
@@ -104,7 +104,7 @@ public:
 				entries++;
 			}
 		}
-		loadFactor = entries/29;
+		loadFactor = entries / 29;
 	}
 
 	double getLoad() {
@@ -124,7 +124,8 @@ private:
 	int firstCollision = 0;
 	int loadFactor90 = 0;
 	int loadFactor100 = 0;
-	
+	int length29 = 0;
+
 public:
 	void add(int index, int numIn) {
 		if (loadFactor == 1) {
@@ -136,6 +137,9 @@ public:
 		}
 		data[index % 29].push_back(numIn);
 		this->calcLoad();
+		if (data[index % 29].size() >= 29 && length29 == 0) {
+			length29 = inserts;
+		}
 		if (loadFactor90 == 0 && loadFactor >= .9) {
 			loadFactor90 = inserts;
 		}
@@ -159,7 +163,7 @@ public:
 				entries++;
 			}
 		}
-		loadFactor = entries/29;
+		loadFactor = entries / 29;
 	}
 
 	double getLoad() {
@@ -176,5 +180,9 @@ public:
 
 	int getLoadFactor100() {
 		return loadFactor100;
+	}
+
+	int getLength29() {
+		return length29;
 	}
 };

@@ -4,7 +4,7 @@ using namespace std;
 
 int main() {
     srand(time(0));
-    double first= 0;
+    double first = 0;
     for (int i = 0; i < 1000; i++) {
         LinearTable l;
         for (int j = 1; j <= 29; j++) {
@@ -31,9 +31,8 @@ int main() {
     double load100 = 0;
     for (int i = 0; i < 1000; i++) {
         ChainTable c;
-        int j = 1;
-        while(c.getLoad() != 1) {
-            c.add(rand() % 100 + 1, j);
+        while (c.getLoad() != 1) {
+            c.add(rand() % 100 + 1, i);
         }
         first += c.getFirstCollsion();
         load90 += c.getLoadFactor90();
@@ -45,4 +44,7 @@ int main() {
     cout << "Chain inserts before first collision: " << first << endl;
     cout << "Chain inserts before load 90: " << load90 << endl;
     cout << "Chain inserts before load 100: " << load100 << endl;
+
+    ChainTable c2;
+
 }
